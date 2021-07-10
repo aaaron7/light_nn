@@ -1,0 +1,7 @@
+platform :ios, '9.0'
+ali_source 'alibaba-specs'
+ali_source 'alibaba-specs-mirror'
+
+target 'light_nn' do
+end
+

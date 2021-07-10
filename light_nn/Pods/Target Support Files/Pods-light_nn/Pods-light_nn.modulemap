@@ -1,0 +1,6 @@
+module Pods_light_nn {
+  umbrella header "Pods-light_nn-umbrella.h"
+
+  export *
+  module * { export * }
+}
