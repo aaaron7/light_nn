@@ -11,25 +11,12 @@ class Layer {
     var neurons : [Neuron] = []
     var prevLayer : Layer?
     var nextLayer : Layer?
-    init(neuronConut : Int, prevL : Layer?, bias : Bool) {
+    init(neuronConut : Int, prevL : Layer?) {
         prevLayer = prevL
         for _ in 0...neuronConut-1{
             let n = Neuron()
             if let pl = prevLayer{
-                for _ in 0...pl.neurons.count-1{
-                    n.inputWeights.append(0)
-                }
-                n.makeWeightsRandom()
-            }
-            neurons.append(n)
-        }
-        
-        if bias{
-            let n = BiasNeuron()
-            if let pl = prevLayer{
-                for _ in 0...pl.neurons.count-1{
-                    n.inputWeights.append(0)
-                }
+                n.inputWeights = [Double](repeating: 0, count: pl.neurons.count)
                 n.makeWeightsRandom()
             }
             neurons.append(n)
@@ -46,17 +33,6 @@ class Layer {
                 neurons[i].s = input[i] 
             }
             return input
-        }
-    }
-    
-    func updateDerivative(labels : [Double]){
-        for (i, neuron) in neurons.enumerated(){
-            var truth:Double = 0.0
-            if nextLayer == nil{
-                truth = labels[i]
-            }
-            
-            neuron.updateDerivative(truth: truth, nextLayer: nextLayer, idx: i)
         }
     }
 }

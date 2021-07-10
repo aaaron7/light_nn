@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var btnTest : UIButton = UIButton(frame: CGRect(x: 200, y: 150, width: 100, height: 50))
     var btnE : UIButton = UIButton(frame: CGRect(x: 50, y: 670, width: 100, height: 50))
     var btnTestSwitch : UIButton = UIButton(frame: CGRect(x: 100, y: 350, width: 150, height: 50))
-    var net = NerualNet(shape: [784, 28, 10])
+    var net = NeuralNet(shape: [784, 28, 10])
     var resultLb = UILabel(frame: CGRect(x: 100, y: 420, width: 100, height: 50))
     var dataSet = MNISTDataSet()
     var testIdx = 17
@@ -72,7 +72,11 @@ class ViewController: UIViewController {
         
         btnTest.setTitle("Test", for: UIControl.State.normal)
         btnTest.addAction(UIAction(handler: { action in
-            self.testAll(step: 0)
+            self.resultLb.text = "Validating"
+            self.resultLb.sizeToFit()
+            DispatchQueue.global().async {
+                self.testAll(step: 0)
+            }
         }), for: .touchUpInside)
         
         btnTestSwitch.setTitle("Switch Test Img", for: UIControl.State.normal)
@@ -117,6 +121,7 @@ class ViewController: UIViewController {
     
     func testAll(step : Int){
         var correct = 0
+        
         for i in (1..<self.dataSet.testImages.count){
             let item = self.dataSet.testImages[i]
             let imageData = item.map{Double($0) / 255}
@@ -127,13 +132,16 @@ class ViewController: UIViewController {
                 correct = correct + 1
             }
         }
-        if step > 0{
-            resultLb.text = "step \(step) accuracy: \(Double(correct) / Double(self.dataSet.testLabels.count))"
-        }else{
-            resultLb.text = "model accuracy: \(Double(correct) / Double(self.dataSet.testLabels.count))"
+        DispatchQueue.main.async {
+            if step > 0{
+                self.resultLb.text = "step \(step) accuracy: \(Double(correct) / Double(self.dataSet.testLabels.count))"
+            }else{
+                self.resultLb.text = "model accuracy: \(Double(correct) / Double(self.dataSet.testLabels.count))"
 
+            }
+            self.resultLb.sizeToFit()
         }
-        resultLb.sizeToFit()
+
         NSLog("accuracy at step %d: %f", step,Double(correct) / Double(self.dataSet.testLabels.count))
     }
     

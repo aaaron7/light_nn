@@ -8,15 +8,9 @@
 import Foundation
 import Accelerate
 
-class NerualNet {
+class NeuralNet {
     var layers : [Layer] = []
     var netShape : [Int] = []
-    func getOutputs(input: [Double]) -> [Double] {
-        assert(input.count == netShape[0])
-        return layers.reduce(input) { r, l in
-            l.getOutputs(input: r);
-        }
-    }
     
     init(shape : [Int]) {
         netShape = shape
@@ -24,30 +18,29 @@ class NerualNet {
         srand48(time)
         
         var prevLayer:Layer? = nil
-        var i = 0
         for item in shape{
-            let layer = Layer(neuronConut: item, prevL: prevLayer, bias: false)
+            let layer = Layer(neuronConut: item, prevL: prevLayer)
             prevLayer?.nextLayer = layer
             prevLayer = layer
             layers.append(layer)
-            i = i+1
         }
     }
+    
+    func getOutputs(input: [Double]) -> [Double] {
+        assert(input.count == netShape[0])
+        return layers.reduce(input) { r, l in
+            l.getOutputs(input: r);
+        }
+    }
+
     
     var testBlock : ((Int)->Void)?
     
     func train(inputs : [[Double]], labels : [[Double]]){
         for (loc, xs) in inputs.enumerated(){
-
             let ys = labels[loc]
-            let result = getOutputs(input: xs)
-            
-            let error = vecSubstract(x: ys, y: result)
-            let sqr = vecMul(x: error, y: error)
-            let finalError = sqrt(vecSum(x: sqr))
-//            print("current error:", error)
+            _ = getOutputs(input: xs)
             if loc % 500 == 0{
-//                NSLog("Process: %d, error: %f", loc, finalError)
                 if let b = testBlock{
                     b(loc)
                 }
@@ -57,27 +50,16 @@ class NerualNet {
         }
     }
     
-    func vecSubstract(x : [Double], y: [Double]) ->[Double]{
-        var result = [Double](y)
-        catlas_daxpby(Int32(x.count), 1.0, x, 1, -1, &result, 1)
-        return result
-    }
-    
-    func vecMul(x : [Double], y : [Double]) -> [Double]{
-        var result = [Double](repeating: 0.0, count: x.count)
-        vDSP_vmulD(x, 1, y, 1, &result, 1, vDSP_Length(x.count))
-        return result
-    }
-    
-    func vecSum(x : [Double]) ->Double{
-        var result : Double = 0.0
-        vDSP_sveD(x, 1, &result, vDSP_Length(x.count))
-        return result
-    }
-    
     func backprop(labels : [Double]){
         for i in (1..<layers.count).reversed(){
-            layers[i].updateDerivative(labels: labels)
+            let l = layers[i]
+            var truth:Double = 0.0
+            for (j, neuron) in l.neurons.enumerated(){
+                if l.nextLayer == nil{
+                    truth = labels[j]
+                }
+                neuron.updateGrad(truth: truth, nextLayer: l.nextLayer, idx: j)
+            }
         }
         
         for i in (1..<layers.count){

@@ -20,7 +20,7 @@
 		93F5A08226871F3100A91540 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F5A08126871F3100A91540 /* Assets.xcassets */; };
 		93F5A08526871F3100A91540 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93F5A08326871F3100A91540 /* LaunchScreen.storyboard */; };
 		93F5A0912687215F00A91540 /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A0902687215F00A91540 /* Layer.swift */; };
-		93F5A09326872A8F00A91540 /* NerualNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A09226872A8F00A91540 /* NerualNet.swift */; };
+		93F5A09326872A8F00A91540 /* NeuralNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A09226872A8F00A91540 /* NeuralNet.swift */; };
 		93F5A09526872A9F00A91540 /* Neuron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A09426872A9F00A91540 /* Neuron.swift */; };
 		CF1FC3945518CC57EF939290 /* libPods-light_nn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F0B2DCD1A60FA0FED4D3EA /* libPods-light_nn.a */; };
 /* End PBXBuildFile section */
@@ -43,7 +43,7 @@
 		93F5A08426871F3100A91540 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93F5A08626871F3100A91540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93F5A0902687215F00A91540 /* Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
-		93F5A09226872A8F00A91540 /* NerualNet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NerualNet.swift; sourceTree = "<group>"; };
+		93F5A09226872A8F00A91540 /* NeuralNet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuralNet.swift; sourceTree = "<group>"; };
 		93F5A09426872A9F00A91540 /* Neuron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neuron.swift; sourceTree = "<group>"; };
 		D7F0B2DCD1A60FA0FED4D3EA /* libPods-light_nn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-light_nn.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -119,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				93F5A0902687215F00A91540 /* Layer.swift */,
-				93F5A09226872A8F00A91540 /* NerualNet.swift */,
+				93F5A09226872A8F00A91540 /* NeuralNet.swift */,
 				93F5A09426872A9F00A91540 /* Neuron.swift */,
 				93499C3F268DA4E800C9ABAF /* Utility.swift */,
 			);
@@ -237,7 +237,7 @@
 				93499C40268DA4E800C9ABAF /* Utility.swift in Sources */,
 				9383E26D2692ECF500765E08 /* ByteImage.swift in Sources */,
 				93F5A07D26871F2E00A91540 /* ViewController.swift in Sources */,
-				93F5A09326872A8F00A91540 /* NerualNet.swift in Sources */,
+				93F5A09326872A8F00A91540 /* NeuralNet.swift in Sources */,
 				93F5A07926871F2E00A91540 /* AppDelegate.swift in Sources */,
 				93F5A07B26871F2E00A91540 /* SceneDelegate.swift in Sources */,
 				93F5A09526872A9F00A91540 /* Neuron.swift in Sources */,
